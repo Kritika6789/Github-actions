@@ -31,13 +31,13 @@ jobs:
     
     deploy_job_1:
         needs: [test_job_2]          # if job depends on more than 1 job then we can make use of array
-        runs-on: ubuntu:latest
+        runs-on: ubuntu-latest
         steps:
         - name: Download Dragon text file
           uses: actions/download-artifact@v4
           with:
             name: dragon-text-file
-            
+
         - name: Read file
           run: cat dragon.txt
 
