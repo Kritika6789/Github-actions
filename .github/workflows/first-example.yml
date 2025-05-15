@@ -12,5 +12,5 @@ jobs:
               run: ls
 
             - name: Read files
-              run: cat Kritika6789/Github-actions/README.md
+              run: cat  practice.txt
 
