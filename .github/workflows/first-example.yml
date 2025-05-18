@@ -3,9 +3,7 @@ on: push
 jobs:
     first_job:
         #define where the job runs
-        runs-on:
-          - self-hosted
-          - label-1
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout Repo
               uses: actions/checkout@v4
