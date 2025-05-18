@@ -21,6 +21,23 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'SonarCloudConnection'
+          organization: 'your-org'
+          scannerMode: 'CLI'
+          configMode: 'manual'
+          cliProjectKey: 'your-project-key'
+          cliSources: '.'
+
+      - script: npm run build
+        displayName: 'Build project'
+
+      - task: SonarCloudAnalyze@1
+ 
+      - task: SonarCloudPublish@1
+        inputs:
+          pollingTimeoutSec: '300'
 
            
 
