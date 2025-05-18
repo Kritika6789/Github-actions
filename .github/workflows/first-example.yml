@@ -4,15 +4,14 @@ on: push
 
 jobs:
   first_job:
-    runs-on: 
-      - self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Build
         run: echo "Building completed"
 
   notify:
     needs: first_job   # ensures this runs after first_job
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Send simple message to Slack
         env:
@@ -22,6 +21,7 @@ jobs:
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
   sonarqube:
+    needs: notify
     name: SonarQube
     runs-on: ubuntu-latest
     steps:
