@@ -14,11 +14,11 @@ jobs:
                    ls -ltra
                    cat README.md
             - name: send slack notification
-              uses: slackapi/slack-github-actions@v1.24.0
+              uses: slackapi/slack-github-action@v2.1.0
               with:
                 payload: |
                          {
-                         "text":"Build on *{{ github.repository}}* has *${{job.status}}*.\n '${{github.sha}}' by ${{github.actor}}"
+                         "text":"successfully completed!"
                           }
                 env:
                   SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
