@@ -24,15 +24,16 @@ jobs:
     needs: notify
     runs-on: ubuntu-latest
     steps:
-    - script: |
+      - name: Testing 
+        run: |
             npm install
             npm run test -- --coverage
-      displayName: 'Run Jest Tests with Coverage'
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: 'Cobertura'
-        summaryFileLocation: 'coverage/lcov.info'
-        reportDirectory: 'coverage'
+        displayName: 'Run Jest Tests with Coverage'
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: 'coverage/lcov.info'
+          reportDirectory: 'coverage'
   sonarqube:
     needs: notify
     name: SonarQube
