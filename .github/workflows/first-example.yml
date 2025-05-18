@@ -13,6 +13,20 @@ jobs:
                    echo "My first Github job"
                    ls -ltra
                    cat README.md
+    notify:
+        needs: first_job
+        runs-on: ubuntu-latest
+        if: always()
+        stesps:
+            - name: send slack notification
+              uses: slackapi/slack-github-action@v2.1.0
+              with:
+                payload: |
+                         {
+                         "text":"successfully completed!"
+                          }
+                env:
+                  SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
            
 
            # - name: Generate ASCII Artwork
