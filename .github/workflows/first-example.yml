@@ -1,34 +1,27 @@
 name: My First workflow
+
 on: push
+
 jobs:
-    first_job:
-        #define where the job runs
-        runs-on: ubuntu-latest
-        steps:
-          - name: build
-            run: echo "Building completed"
-    notify:
-        needs: first_job
-        runs-on: ubuntu-latest
-        if: always()
-        steps:
-            - name: send slack notification
-              uses: slackapi/slack-github-action@v2.1.0
-              with:
-                payload: |
-                         {
-                         "text":"successfully completed!"
-                          }
-                env:
-                  SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo "Building completed"
+
+  notify:
+    needs: first_job   # ensures this runs after first_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send simple message to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
+          $SLACK_WEBHOOK_URL
+
            
 
-           # - name: Generate ASCII Artwork
-            #  run:  cowsay -f dragon "Run for cover, I am a DRAGON.....RAWR">>dragon.txt
-            
-            #- name: List files
-            #  run: ls
-
-            #- name: Read files
-            # run: cat  practice.txt
+    
 
