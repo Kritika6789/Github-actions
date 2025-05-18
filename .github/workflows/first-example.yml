@@ -20,6 +20,16 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
+  testing:
+    - script: |
+            npm install
+            npm run test -- --coverage
+      displayName: 'Run Jest Tests with Coverage'
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: 'coverage/lcov.info'
+        reportDirectory: 'coverage'
   sonarqube:
     needs: notify
     name: SonarQube
