@@ -5,14 +5,8 @@ jobs:
         #define where the job runs
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v4
-              
-            - name: List and Read file
-              run: |
-                   echo "My first Github job"
-                   ls -ltra
-                   cat README.md
+          - name: build
+            run: echo "Building completed"
     notify:
         needs: first_job
         runs-on: ubuntu-latest
