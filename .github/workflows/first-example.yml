@@ -15,6 +15,15 @@ jobs:
                    echo "My first Github job"
                    ls -ltra
                    cat README.md
+            - name: send slack notification
+              uses: slackapi/slack-github-actions@v1.24.0
+              with:
+                payload: |
+                         {
+                         "text":"Build on *{{ github.repository}}* has *${{job.status}}*.\n '${{github.sha}}' by ${{github.actor}}"
+                          }
+                env:
+                  SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
 
            # - name: Generate ASCII Artwork
             #  run:  cowsay -f dragon "Run for cover, I am a DRAGON.....RAWR">>dragon.txt
