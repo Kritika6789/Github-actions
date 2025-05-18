@@ -21,6 +21,9 @@ jobs:
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
   testing:
+    needs: notify
+    runs-on: ubuntu-latest
+    steps:
     - script: |
             npm install
             npm run test -- --coverage
