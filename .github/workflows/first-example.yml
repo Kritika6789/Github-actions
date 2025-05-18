@@ -20,7 +20,7 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
-  test:
+  test1:
     name: Run tests and collect coverage
     runs-on: ubuntu-latest
     steps:
