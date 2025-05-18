@@ -43,7 +43,20 @@ jobs:
 
         - name: Print
           run: echo "deployment successfull....."
-    
+    notify:
+        needs: first_job
+        runs-on: ubuntu-latest
+        if: always()
+        steps:
+            - name: send slack notification
+              uses: slackapi/slack-github-action@v2.1.0
+              with:
+                payload: |
+                         {
+                         "text":"successfully completed!"
+                          }
+                env:
+                  SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
           
 
 
