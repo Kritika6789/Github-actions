@@ -24,16 +24,10 @@ jobs:
     needs: notify
     runs-on: ubuntu-latest
     steps:
-      - name: Testing 
-        run: |
-            npm install
-            npm run test -- --coverage
-        displayName: 'Run Jest Tests with Coverage'
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          codeCoverageTool: 'Cobertura'
-          summaryFileLocation: 'coverage/lcov.info'
-          reportDirectory: 'coverage'
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
   sonarqube:
     needs: notify
     name: SonarQube
