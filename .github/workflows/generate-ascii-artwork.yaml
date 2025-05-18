@@ -44,7 +44,7 @@ jobs:
         - name: Print
           run: echo "deployment successfull....."
     notify:
-        needs: first_job
+        needs: deploy_job_1
         runs-on: ubuntu-latest
         if: always()
         steps:
