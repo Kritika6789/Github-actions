@@ -20,14 +20,29 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
           --data "{\"text\":\"🚀 A push was made to the main branch of ${{ github.repository }} by ${{ github.actor }}.\"}" \
           $SLACK_WEBHOOK_URL
-  testing:
-    needs: notify
+  test:
+    name: Run tests and collect coverage
     runs-on: ubuntu-latest
     steps:
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v5
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx jest --coverage
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Kritika6789/Github-actions
   sonarqube:
     needs: notify
     name: SonarQube
